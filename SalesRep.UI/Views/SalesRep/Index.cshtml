@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<SalesRep.Core.Models.SalesRepresentative>
+
+<form method="get">
+    <input type="text" name="search" placeholder="Search by name..." />
+    <input type="text" name="region" placeholder="Region..." />
+    <input type="text" name="product" placeholder="Product..." />
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead><tr><th>Name</th><th>Region</th><th>Product</th><th>Performance</th></tr></thead>
+    <tbody>
+        @foreach (var rep in Model)
+        {
+            <tr>
+                <td>@rep.Name</td>
+                <td>@rep.Region</td>
+                <td>@rep.Product</td>
+                <td>@rep.SalesPerformance</td>
+            </tr>
+        }
+    </tbody>
+</table>
