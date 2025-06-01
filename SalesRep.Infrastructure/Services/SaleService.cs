@@ -81,5 +81,34 @@ namespace SalesRep.Infrastructure.Services
                 s.ProductId == productId &&
                 s.SaleDate.Date == saleDate.Date);
         }
+
+        public async Task<List<SaleResponseDto>> FilterSalesAsync(int? salesRepId, int? productId, DateTime? fromDate, DateTime? toDate)
+        {
+            var query = _context.Sales
+                .Include(s => s.SalesRep)
+                .Include(s => s.Product)
+                .AsQueryable();
+
+            if (salesRepId.HasValue)
+                query = query.Where(s => s.SalesRepId == salesRepId.Value);
+
+            if (productId.HasValue)
+                query = query.Where(s => s.ProductId == productId.Value);
+
+            if (fromDate.HasValue)
+                query = query.Where(s => s.SaleDate >= fromDate.Value);
+
+            if (toDate.HasValue)
+                query = query.Where(s => s.SaleDate <= toDate.Value);
+
+            return await query.Select(s => new SaleResponseDto
+            {
+                Id = s.Id,
+                SalesRepName = s.SalesRep.Name,
+                ProductName = s.Product.Name,
+                Amount = s.Amount,
+                SaleDate = s.SaleDate
+            }).ToListAsync();
+        }
     }
 }

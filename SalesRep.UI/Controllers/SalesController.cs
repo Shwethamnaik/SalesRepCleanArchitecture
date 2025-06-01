@@ -2,6 +2,7 @@
 using SalesRep.Core.DTO;
 using SalesRep.Core.Interfaces;
 using SalesRep.UI.Services.Interfaces;
+using SalesRep.UI.ViewModel;
 
 namespace SalesRep.UI.Controllers
 {
@@ -15,10 +16,12 @@ namespace SalesRep.UI.Controllers
             _uiHelper = uiHelper;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(SalesFilterViewModel filter)
         {
-            var salesReps = await _service.GetSalesAsync();
-            return View(salesReps);
+            filter.SalesReps = await _uiHelper.GetSalesRepSelectListAsync();
+            filter.Products = await _uiHelper.GetProductSelectListAsync();
+            filter.Sales = await _service.FilterSalesAsync(filter.SalesRepId, filter.ProductId, filter.FromDate, filter.ToDate);
+            return View(filter);
         }
 
         [HttpGet]

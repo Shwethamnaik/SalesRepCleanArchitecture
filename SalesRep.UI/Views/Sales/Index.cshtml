@@ -1,15 +1,39 @@
-﻿@using SalesRep.Core.DTO
-@using SalesRep.Core.Models
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using SalesRep.UI.ViewModel
 
-@model List<SaleResponseDto>
+@model SalesFilterViewModel
+
 @{
     ViewData["Title"] = "Sales";
 }
 
 <h2>Sales List</h2>
-<a asp-action="Create" class="btn btn-primary">Add New Sale</a>
 
-<table class="table mt-3">
+<form method="get" asp-action="Index" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label>Sales Rep</label>
+        @Html.DropDownListFor(m => m.SalesRepId, Model.SalesReps, "All", new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        <label>Product</label>
+        @Html.DropDownListFor(m => m.ProductId, Model.Products, "All", new { @class = "form-control" })
+    </div>
+    <div class="col-md-2">
+        <label>From</label>
+        @Html.TextBoxFor(m => m.FromDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+    <div class="col-md-2">
+        <label>To</label>
+        @Html.TextBoxFor(m => m.ToDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<a asp-action="Create" class="btn btn-success mb-3">Add New Sale</a>
+
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Sales Rep</th>
@@ -19,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var sale in Model)
+        @foreach (var sale in Model.Sales)
         {
             <tr>
                 <td>@sale.SalesRepName</td>
