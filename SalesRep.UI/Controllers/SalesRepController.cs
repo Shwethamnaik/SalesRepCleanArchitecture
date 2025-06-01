@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesRep.Core.DTO;
 using SalesRep.Core.Interfaces;
 using SalesRep.Core.Models;
 
@@ -35,7 +36,7 @@ namespace SalesRep.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateSalesRepViewModel salesRepViewModel)
+        public async Task<IActionResult> Create(SalesRepCreateDto salesRepViewModel)
         {
             var salesRep = new SalesRepCreateDto
             {

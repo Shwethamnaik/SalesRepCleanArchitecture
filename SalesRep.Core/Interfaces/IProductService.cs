@@ -1,4 +1,4 @@
-﻿using SalesRep.Core.Models;
+﻿using SalesRep.Core.DTO;
 
 namespace SalesRep.Core.Interfaces
 {

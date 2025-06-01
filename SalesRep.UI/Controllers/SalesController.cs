@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesRep.Core.DTO;
 using SalesRep.Core.Interfaces;
-using SalesRep.Core.Models;
 using SalesRep.UI.Services.Interfaces;
 
 namespace SalesRep.UI.Controllers

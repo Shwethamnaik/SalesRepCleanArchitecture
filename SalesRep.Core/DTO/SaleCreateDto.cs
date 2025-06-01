@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SalesRep.Core.Models
+namespace SalesRep.Core.DTO
 {
     public class SaleCreateDto
     {

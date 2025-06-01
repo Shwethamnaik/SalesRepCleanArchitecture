@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SalesRep.Core.Models
+namespace SalesRep.Core.DTO
 {
     public class SaleResponseDto
     {

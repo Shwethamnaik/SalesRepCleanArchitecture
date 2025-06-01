@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SalesRep.Core.DTO;
 using SalesRep.Core.Interfaces;
-using SalesRep.Core.Models;
 using SalesRep.Infrastructure.Data;
 
 namespace SalesRep.Infrastructure.Services
