@@ -62,5 +62,13 @@ namespace SalesRep.Infrastructure.Services
             var rep = await _context.SalesRepresentatives.FindAsync(id);
             if (rep != null) { _context.Remove(rep); await _context.SaveChangesAsync(); }
         }
+
+        public async Task<List<string>> GetDistinctRegionsAsync()
+        {
+            return await _context.SalesRepresentatives
+                                 .Select(sr => sr.Region)
+                                 .Distinct()
+                                 .ToListAsync();
+        }
     }
 }

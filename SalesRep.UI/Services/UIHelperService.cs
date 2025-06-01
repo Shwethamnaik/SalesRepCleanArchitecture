@@ -34,5 +34,13 @@ namespace SalesRep.UI.Services
                 Text = r.Name
             }).ToList();
         }
+
+        public async Task<List<SelectListItem>> GetRegionSelectListAsync()
+        {
+            var regions = await _salesRepService.GetDistinctRegionsAsync();
+            var selectList = regions.Select(r => new SelectListItem { Value = r, Text = r }).ToList();
+            selectList.Insert(0, new SelectListItem { Value = "", Text = "All" });
+            return selectList;
+        }
     }
 }

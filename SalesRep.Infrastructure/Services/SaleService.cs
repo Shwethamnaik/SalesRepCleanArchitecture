@@ -4,7 +4,7 @@ using SalesRep.Core.DTO;
 using SalesRep.Core.Interfaces;
 using SalesRep.Core.Models;
 using SalesRep.Infrastructure.Data;
-
+using SalesRep.UI.ViewModel;
 namespace SalesRep.Infrastructure.Services
 {
     public class SaleService : ISaleService
@@ -82,33 +82,45 @@ namespace SalesRep.Infrastructure.Services
                 s.SaleDate.Date == DateTime.SpecifyKind(s.SaleDate, DateTimeKind.Utc));
         }
 
-        public async Task<List<SaleResponseDto>> FilterSalesAsync(int? salesRepId, int? productId, DateTime? fromDate, DateTime? toDate)
+        public async Task<List<SaleResponseDto>> FilterSalesAsync(SalesFilterViewModel filter)
         {
             var query = _context.Sales
                 .Include(s => s.SalesRep)
                 .Include(s => s.Product)
                 .AsQueryable();
 
-            if (salesRepId.HasValue)
-                query = query.Where(s => s.SalesRepId == salesRepId.Value);
+            if (filter.ProductId.HasValue)
+                query = query.Where(s => s.ProductId == filter.ProductId.Value);
 
-            if (productId.HasValue)
-                query = query.Where(s => s.ProductId == productId.Value);
+            if (filter.FromDate.HasValue)
+                query = query.Where(s => s.SaleDate >= filter.FromDate.Value);
 
-            if (fromDate.HasValue)
-                query = query.Where(s => s.SaleDate >= fromDate.Value);
+            if (filter.ToDate.HasValue)
+                query = query.Where(s => s.SaleDate <= filter.ToDate.Value);
 
-            if (toDate.HasValue)
-                query = query.Where(s => s.SaleDate <= toDate.Value);
+            if (!string.IsNullOrEmpty(filter.Region))
+                query = query.Where(s => s.SalesRep.Region == filter.Region);
 
-            return await query.Select(s => new SaleResponseDto
-            {
-                Id = s.Id,
-                SalesRepName = s.SalesRep.Name,
-                ProductName = s.Product.Name,
-                Amount = s.Amount,
-                SaleDate = s.SaleDate
-            }).ToListAsync();
+            if (filter.MinSalesPerformance.HasValue)
+                query = query.Where(s => s.Amount >= filter.MinSalesPerformance.Value);
+
+            if (filter.MaxSalesPerformance.HasValue)
+                query = query.Where(s => s.Amount <= filter.MaxSalesPerformance.Value);
+
+            var result = await query.Include(s => s.SalesRep)
+                        .Include(s => s.Product)
+                        .Select(s => new SaleResponseDto
+                        {
+                            Id = s.Id,
+                            SalesRepId = s.SalesRepId,
+                            ProductId = s.ProductId,
+                            SaleDate = s.SaleDate,
+                            Amount = s.Amount,
+                            SalesRepName = s.SalesRep.Name,
+                            ProductName = s.Product.Name
+                        })
+                        .ToListAsync();
+            return result;
         }
     }
 }

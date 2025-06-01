@@ -11,5 +11,6 @@ namespace SalesRep.Core.Interfaces
         Task Add(SalesRepCreateDto rep);
         Task Update(SalesRepresentative rep);
         Task Delete(int id);
+        Task<List<string>> GetDistinctRegionsAsync();
     }
 }

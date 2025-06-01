@@ -1,5 +1,6 @@
 ﻿using SalesRep.Core.DTO;
 using SalesRep.Core.Models;
+using SalesRep.UI.ViewModel;
 
 namespace SalesRep.Core.Interfaces
 {
@@ -9,6 +10,6 @@ namespace SalesRep.Core.Interfaces
         Task<List<SaleResponseDto>> GetSalesAsync();
         Task<(bool IsSuccess, string? Error, SaleResponseDto? Result)> AddSaleAsync(SaleCreateDto sale);
         Task<bool> ExistsAsync(int salesRepId, int productId, DateTime saleDate);
-        Task<List<SaleResponseDto>> FilterSalesAsync(int? salesRepId, int? productId, DateTime? fromDate, DateTime? toDate);
+        Task<List<SaleResponseDto>> FilterSalesAsync(SalesFilterViewModel filter);
     }
 }

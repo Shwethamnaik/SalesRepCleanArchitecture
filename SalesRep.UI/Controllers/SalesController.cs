@@ -20,7 +20,9 @@ namespace SalesRep.UI.Controllers
         {
             filter.SalesReps = await _uiHelper.GetSalesRepSelectListAsync();
             filter.Products = await _uiHelper.GetProductSelectListAsync();
-            filter.Sales = await _service.FilterSalesAsync(filter.SalesRepId, filter.ProductId, filter.FromDate, filter.ToDate);
+            filter.Sales = await _service.FilterSalesAsync(filter);
+            filter.Regions = await _uiHelper.GetRegionSelectListAsync();
+            filter.Sales = await _service.FilterSalesAsync(filter);
             return View(filter);
         }
 

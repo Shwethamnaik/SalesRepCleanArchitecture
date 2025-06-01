@@ -6,5 +6,6 @@ namespace SalesRep.UI.Services.Interfaces
     {
         Task<List<SelectListItem>> GetSalesRepSelectListAsync();
         Task<List<SelectListItem>> GetProductSelectListAsync();
+        Task<List<SelectListItem>> GetRegionSelectListAsync();
     }
 }
