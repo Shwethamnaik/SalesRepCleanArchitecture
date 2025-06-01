@@ -1,12 +1,9 @@
 ﻿namespace SalesRep.Core.Models
 {
-    public class SalesRepresentative
+    public class Product
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Region { get; set; }
-        //public string Product { get; set; }
-        //public decimal SalesPerformance { get; set; }
         public ICollection<Sale> Sales { get; set; } = new List<Sale>();
     }
 }

@@ -10,9 +10,17 @@ namespace SalesRep.Infrastructure.Services
         private readonly AppDbContext _context;
         public SalesRepService(AppDbContext context) => _context = context;
 
-        public async Task<List<SalesRepresentative>> List()
+        public async Task<List<SalesRepDetailDto>> List()
         {
-            return await _context.SalesRepresentatives.ToListAsync();
+            var reps = await _context.SalesRepresentatives
+                .Select(r => new SalesRepDetailDto
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Region = r.Region
+                })
+                .ToListAsync();
+            return reps;
         }
 
         public async Task<bool> Exists(int id)
@@ -20,14 +28,32 @@ namespace SalesRep.Infrastructure.Services
             return await _context.SalesRepresentatives.AnyAsync(r => r.Id == id);
         }
 
-        public async Task<SalesRepresentative?> GetById(int id)
+        public async Task<SalesRepDetailDto?> GetById(int id)
         {
-            return await _context.SalesRepresentatives.FindAsync(id);
+            var salesRep = await _context.SalesRepresentatives
+               .Where(r => r.Id == id)
+               .Select(r => new SalesRepDetailDto
+               {
+                   Id = r.Id,
+                   Name = r.Name,
+                   Region = r.Region
+               })
+               .FirstOrDefaultAsync();
+            return salesRep;
         }
-        public async Task Add(SalesRepresentative rep)
+        public async Task Add(SalesRepCreateDto dto)
         {
-            _context.Add(rep);
+            var salesRep = new SalesRepresentative
+            {
+                Name = dto.Name,
+                Region = dto.Region
+            };
+
+            _context.SalesRepresentatives.Add(salesRep);
             await _context.SaveChangesAsync();
+
+            //_context.Add(rep);
+            //await _context.SaveChangesAsync();
         }
         public async Task Update(SalesRepresentative rep)
         {

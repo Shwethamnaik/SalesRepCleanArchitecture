@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SalesRep.Core.Models.SalesRepresentative>
+﻿@model IEnumerable<SalesRep.Core.Models.SalesRepDetailDto>
 
 @{
     ViewData["Title"] = "List";
@@ -18,12 +18,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Region)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalesPerformance)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,12 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Region)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalesPerformance)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -23,8 +23,8 @@ namespace SalesRep.API.Controllers
         }
 
         [HttpGet]
-        [Route("Details")]
-        public async Task<IActionResult> Details(int id)
+        [Route("GetById")]
+        public async Task<IActionResult> GetById(int id)
         {
             var reps = await _service.GetById(id);
             if (reps != null)
@@ -35,15 +35,14 @@ namespace SalesRep.API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(SalesRepresentative rep)
+        public async Task<IActionResult> Create(SalesRepCreateDto rep)
         {
             //separate DTO for creation, which prevents identity column creation issue
             if (!ModelState.IsValid)
                 return BadRequest(ModelState); // 400 with validation errors
-            rep.Id = 0;
             await _service.Add(rep);
 
-            return CreatedAtAction(nameof(Details), new { id = rep.Id }, rep); // Use the ID from the input object.
+            return CreatedAtAction(nameof(GetById), rep); // Use the ID from the input object.
         }
 
         //[HttpPut]

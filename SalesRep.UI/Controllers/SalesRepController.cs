@@ -44,12 +44,12 @@ namespace SalesRep.UI.Controllers
         public async Task<IActionResult> Create(CreateSalesRepViewModel salesRepViewModel)
         {
             //create viewmodel instead of using salesRep directly
-            var salesRep = new SalesRepresentative
+            var salesRep = new SalesRepCreateDto
             {
                 Name = salesRepViewModel.Name,
-                Product = salesRepViewModel.Product,
+                //Product = salesRepViewModel.Product,
                 Region = salesRepViewModel.Region,
-                SalesPerformance = salesRepViewModel.SalesPerformance
+                //SalesPerformance = salesRepViewModel.SalesPerformance
             };
             if (ModelState.IsValid)
             {
@@ -71,15 +71,13 @@ namespace SalesRep.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(SalesRepresentative salesRepModel)
         {
-            var salesRep = await _service.GetById(salesRepModel.Id);
-            if (salesRep is not null)
+            SalesRepresentative SalesRep = new SalesRepresentative
             {
-                salesRep.Name = salesRepModel.Name;
-                salesRep.Product = salesRepModel.Product;
-                salesRep.Region = salesRepModel.Region;
-                salesRep.SalesPerformance = salesRepModel.SalesPerformance;
-                await _service.Update(salesRep);
-            }
+                Id = salesRepModel.Id,
+                Name = salesRepModel.Name,
+                Region = salesRepModel.Region
+            };
+            await _service.Update(SalesRep);
             return RedirectToAction("List", "SalesRep");
         }
         public async Task<IActionResult> Delete(int id)

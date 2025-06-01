@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SalesRep.Infrastructure.Data;
 
 namespace SalesRep.UI.Controllers
@@ -12,15 +13,15 @@ namespace SalesRep.UI.Controllers
         }
         public IActionResult Index()
         {
-            var salesData = _context.SalesRepresentatives
-                .GroupBy(s => s.Name)
+            var salesData = _context.Sales
+                .Include(s => s.SalesRep)
+                .GroupBy(s => s.SalesRep.Name)
                 .Select(g => new
                 {
                     RepName = g.Key,
-                    TotalSales = g.Sum(s => s.SalesPerformance)
+                    TotalSales = g.Sum(s => s.Amount)
                 })
                 .ToList();
-
             ViewBag.SalesLabels = salesData.Select(d => d.RepName).ToArray();
             ViewBag.SalesValues = salesData.Select(d => d.TotalSales).ToArray();
 
