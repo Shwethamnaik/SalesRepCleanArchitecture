@@ -37,27 +37,12 @@ namespace SalesRep.API.Controllers
         [Route("Create")]
         public async Task<IActionResult> Create(SalesRepCreateDto rep)
         {
-            //separate DTO for creation, which prevents identity column creation issue
             if (!ModelState.IsValid)
                 return BadRequest(ModelState); // 400 with validation errors
             await _service.Add(rep);
 
             return CreatedAtAction(nameof(GetById), rep); // Use the ID from the input object.
         }
-
-        //[HttpPut]
-        //[Route("Update")]
-        //public async Task<IActionResult> Update([FromBody] SalesRepresentative rep)
-        //{
-        //    //is it good to pass id too in parameter?
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState); // 400 with validation errors
-        //    var existing = await _service.GetById(rep.Id);
-        //    if (existing == null)
-        //        return NotFound();
-        //    await _service.Update(rep);
-        //    return NoContent();
-        //}
 
         [HttpDelete]
         [Route("Delete")]
@@ -70,7 +55,7 @@ namespace SalesRep.API.Controllers
                 return NotFound(new { message = $"SalesRepresentative with ID {id} not found." });
 
             await _service.Delete(id);
-            return NoContent(); // 204 — deletion successful
+            return NoContent();
         }
     }
 }
