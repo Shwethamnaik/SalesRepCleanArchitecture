@@ -1,0 +1,33 @@
+﻿@using SalesRep.Core.Models
+
+@model SaleResponseDto
+
+<h2>Create Sale</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="SalesRepId"></label>
+        <select asp-for="SalesRepId" asp-items="Model.SalesReps" class="form-control"></select>
+        <span asp-validation-for="SalesRepId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductId"></label>
+        <select asp-for="ProductId" asp-items="Model.Products" class="form-control"></select>
+        <span asp-validation-for="ProductId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SaleDate"></label>
+        <input asp-for="SaleDate" class="form-control" type="date" />
+        <span asp-validation-for="SaleDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

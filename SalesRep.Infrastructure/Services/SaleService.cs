@@ -72,5 +72,13 @@ namespace SalesRep.Infrastructure.Services
         {
             return await _context.Sales.Where(x => x.SalesRepId == salesRepId).ToListAsync();
         }
+
+        public async Task<bool> ExistsAsync(int salesRepId, int productId, DateTime saleDate)
+        {
+            return await _context.Sales.AnyAsync(s =>
+                s.SalesRepId == salesRepId &&
+                s.ProductId == productId &&
+                s.SaleDate.Date == saleDate.Date);
+        }
     }
 }

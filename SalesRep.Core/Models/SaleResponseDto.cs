@@ -1,4 +1,6 @@
-﻿namespace SalesRep.Core.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace SalesRep.Core.Models
 {
     public class SaleResponseDto
     {
@@ -9,5 +11,8 @@
         public string ProductName { get; set; } = string.Empty;
         public decimal Amount { get; set; }
         public DateTime SaleDate { get; set; }
+        public List<SelectListItem>? SalesReps { get; set; }
+        public List<SelectListItem>? Products { get; set; }
     }
 }
+

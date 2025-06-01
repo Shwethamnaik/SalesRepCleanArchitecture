@@ -1,0 +1,31 @@
+﻿@using SalesRep.Core.Models
+
+@model List<SaleResponseDto>
+@{
+    ViewData["Title"] = "Sales";
+}
+
+<h2>Sales List</h2>
+<a asp-action="Create" class="btn btn-primary">Add New Sale</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Sales Rep</th>
+            <th>Product</th>
+            <th>Date</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sale in Model)
+        {
+            <tr>
+                <td>@sale.SalesRepName</td>
+                <td>@sale.ProductName</td>
+                <td>@sale.SaleDate.ToShortDateString()</td>
+                <td>@sale.Amount</td>
+            </tr>
+        }
+    </tbody>
+</table>

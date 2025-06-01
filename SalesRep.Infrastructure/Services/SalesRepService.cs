@@ -51,9 +51,6 @@ namespace SalesRep.Infrastructure.Services
 
             _context.SalesRepresentatives.Add(salesRep);
             await _context.SaveChangesAsync();
-
-            //_context.Add(rep);
-            //await _context.SaveChangesAsync();
         }
         public async Task Update(SalesRepresentative rep)
         {

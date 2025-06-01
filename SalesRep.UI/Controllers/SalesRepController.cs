@@ -12,12 +12,6 @@ namespace SalesRep.UI.Controllers
             _service = service;
         }
 
-        //public async Task<IActionResult> Index(string region, string product, string search)
-        //{
-        //    var reps = await _service.List(region, product, search);
-        //    return View(reps);
-        //}
-
         [HttpGet]
         public async Task<IActionResult> List()
         {
@@ -43,13 +37,10 @@ namespace SalesRep.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateSalesRepViewModel salesRepViewModel)
         {
-            //create viewmodel instead of using salesRep directly
             var salesRep = new SalesRepCreateDto
             {
                 Name = salesRepViewModel.Name,
-                //Product = salesRepViewModel.Product,
                 Region = salesRepViewModel.Region,
-                //SalesPerformance = salesRepViewModel.SalesPerformance
             };
             if (ModelState.IsValid)
             {
