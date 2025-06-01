@@ -36,6 +36,7 @@ namespace SalesRep.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SalesRepCreateDto salesRepViewModel)
         {
             var salesRep = new SalesRepCreateDto

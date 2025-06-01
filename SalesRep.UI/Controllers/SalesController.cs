@@ -39,6 +39,7 @@ namespace SalesRep.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SaleResponseDto model)
         {
             if (!ModelState.IsValid)
