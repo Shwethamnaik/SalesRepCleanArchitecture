@@ -28,7 +28,7 @@ namespace SalesRep.Infrastructure.Services
                 SalesRepId = dto.SalesRepId,
                 ProductId = dto.ProductId,
                 Amount = dto.Amount,
-                SaleDate = dto.SaleDate
+                SaleDate = DateTime.SpecifyKind(dto.SaleDate, DateTimeKind.Utc)
             };
             _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
@@ -64,7 +64,7 @@ namespace SalesRep.Infrastructure.Services
                     ProductId = s.ProductId,
                     ProductName = s.Product.Name,
                     Amount = s.Amount,
-                    SaleDate = s.SaleDate
+                    SaleDate = DateTime.SpecifyKind(s.SaleDate, DateTimeKind.Utc)
                 })
                 .ToListAsync();
         }
@@ -79,7 +79,7 @@ namespace SalesRep.Infrastructure.Services
             return await _context.Sales.AnyAsync(s =>
                 s.SalesRepId == salesRepId &&
                 s.ProductId == productId &&
-                s.SaleDate.Date == saleDate.Date);
+                s.SaleDate.Date == DateTime.SpecifyKind(s.SaleDate, DateTimeKind.Utc));
         }
 
         public async Task<List<SaleResponseDto>> FilterSalesAsync(int? salesRepId, int? productId, DateTime? fromDate, DateTime? toDate)
