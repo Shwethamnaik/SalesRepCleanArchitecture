@@ -15,7 +15,7 @@ Architecture Overview
   
 Reasoning Behind Design Choices
 
-·	Razor Pages: Chosen for its page-centric model, which simplifies CRUD and admin-style UIs compared to MVC.
+·	Razor Pages: Chosen for its page-centric model, which simplifies CRUD and admin-style UIs.
 ·	Layered Architecture: Promotes separation of concerns, making the codebase easier to maintain, test, and extend.
 ·	Dependency Injection: Standard in ASP.NET Core, enabling loose coupling and easier unit testing.
 ·	Entity Framework Core: Provides a modern, efficient ORM for .NET, supporting migrations and LINQ queries.
