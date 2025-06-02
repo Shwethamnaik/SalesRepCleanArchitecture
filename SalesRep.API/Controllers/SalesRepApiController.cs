@@ -43,7 +43,7 @@ namespace SalesRep.API.Controllers
                 return BadRequest(ModelState); // 400 with validation errors
             await _service.Add(rep);
 
-            return CreatedAtAction(nameof(GetById), rep); // Use the ID from the input object.
+            return CreatedAtAction(nameof(GetById), rep);
         }
 
         [HttpDelete]
