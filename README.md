@@ -35,6 +35,7 @@ Testing Methodologies
   ·	JWT username-admin, password - password
 
 Notes
+Clone the repository. SalesRep.UI and SalesRep.API can be made as startup project.
 Connection string is configured in appsettings.json under "DefaultConnection" in SalesRep.UI and SalesRep.API. You can add your PostgreSQL database details here.
 Then apply migration using below scripts
 dotnet ef migrations add InitMigration
