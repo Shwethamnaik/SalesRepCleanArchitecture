@@ -40,5 +40,7 @@ Connection string is configured in appsettings.json under "DefaultConnection" in
 Then apply migration using below scripts
 dotnet ef migrations add InitMigration
 dotnet ef database update
+I couldn't use power BI since relevant tools were not installed in my system  
+I didn't use angular for UI, due to time constraint.
 
 
